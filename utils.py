@@ -69,6 +69,29 @@ def show_images(images, labels, num_to_show=5):
   plt.tight_layout()
   plt.show()
 
+def show_reconstructions(original, reconstructed, labels, num_to_show=5):
+  """
+  Displays a comparison grid: 
+  Top row = Originals
+  Bottom row = Reconstructions
+  """
+  fig, axs = plt.subplots(2, num_to_show, figsize=(12, 5))
+  
+  for i in range(num_to_show):
+      # Top Row: Originals
+      axs[0, i].imshow(original[i].reshape(28, 28), cmap="gray")
+      axs[0, i].set_title(f"Orig: {labels[i]}")
+      axs[0, i].axis('off')
+
+      # Bottom Row: Reconstructions
+      axs[1, i].imshow(reconstructed[i].reshape(28, 28), cmap="gray")
+      axs[1, i].set_title("Reconstructed")
+      axs[1, i].axis('off')
+
+  plt.suptitle("Top: Original Images | Bottom: Autoencoder Reconstructions")
+  plt.tight_layout()
+  plt.show()
+
 if __name__ == "__main__":
   X_train, y_train, X_test, y_test = download_mnist()
   print(f"Loaded {len(X_train)} training images.")
